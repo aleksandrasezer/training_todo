@@ -1,55 +1,52 @@
-import React, {useState} from "react";
+import React, {ChangeEvent, useState} from "react";
 
 type PropsType = {
-    friends: FriendsType[]
-    friendsLeft: (id: string) => void
-    friendsCountry: (filter: FilterType) => void
-    addNewFriend: (name: string, age: string, city: string) => void
-}
-export type FriendsType = {
     id: string
-    name: string
-    age: string
-    city: string
+    filter: FilterType
+    title: string
+    tasks: TaskType[]
+    deleteLine: (id: string, TLId: string) => void
+    changeFilter: (filter: FilterType, TLid: string) => void
+    addNewTask: (title: string, TLId: string) => void
+    changeTaskStatus: (checked: boolean, TLId: string, taskId: string) => void
 }
-export type FilterType = 'all' | 'russia' | 'slovenya'
+export type TaskType = {
+    id: string
+    title: string
+    checked: boolean
+}
+export type FilterType = 'all' | 'active' | 'completed'
 
 export function ToDoList(props: PropsType) {
-    const [newFriendName, setNewFriendName] = useState('')
-    const [newAgeName, setNewAgeName] = useState('')
-    const [newCityName, setNewCityName] = useState('')
+    const [newTaskTitle, setNewTaskTitle] = useState('')
+
     return <div>
+        <h3>{props.title}</h3>
+
         <div>
-            Введите имя<input value={newFriendName} onChange={(e) => {
-            setNewFriendName(e.currentTarget.value)
+            Add new task: <input value={newTaskTitle} onChange={(e) => {
+            setNewTaskTitle(e.currentTarget.value)
         }}/>
+            <button onClick={
+                () => {
+                    props.addNewTask(newTaskTitle, props.id)
+                    setNewTaskTitle('')
+                }}>
+                ADD
+            </button>
         </div>
-        <div>
-            Введите возраст<input value={newAgeName} onChange={(e) => {
-            setNewAgeName(e.currentTarget.value)
-        }}/>
-        </div>
-        <div>
-            Введите город<input value={newCityName} onChange={(e) => {
-            setNewCityName(e.currentTarget.value)
-        }}/>
-        </div>
-        <button onClick={
-            () => {
-                props.addNewFriend(newFriendName, newAgeName, newCityName)
-                setNewFriendName('')
-                setNewAgeName('')
-                setNewCityName('')
-            }}>
-            Добавить
-        </button>
+
         <ul>
-            {props.friends.map((f) => <li> Имя:{f.name} Возраст:{f.age} Город:{f.city}
-                <span><button onClick={() => props.friendsLeft(f.id)}>X</button></span></li>)}
+            {props.tasks.map((t) => <li key={t.id}> {t.title}
+                <input type='checkbox' checked={t.checked} onClick={e => {
+                    props.changeTaskStatus(e.currentTarget.checked, props.id, t.id)
+                }}/>
+                <button onClick={() => props.deleteLine(t.id, props.id)}>X</button>
+            </li>)}
             <div>
-                <button onClick={() => props.friendsCountry('russia')}>Россия</button>
-                <button onClick={() => props.friendsCountry('slovenya')}>Словения</button>
-                <button onClick={() => props.friendsCountry('all')}>Все</button>
+                <button onClick={() => props.changeFilter('completed', props.id)}>COMPLETED</button>
+                <button onClick={() => props.changeFilter('active', props.id)}>ACTIVE</button>
+                <button onClick={() => props.changeFilter('all', props.id)}>ALL</button>
             </div>
         </ul>
     </div>
