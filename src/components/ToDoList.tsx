@@ -1,4 +1,5 @@
-import React, {ChangeEvent, useState} from "react";
+import React from "react";
+import {AddItemForm} from "./AddItemForm/AddItemForm";
 
 type PropsType = {
     id: string
@@ -18,22 +19,15 @@ export type TaskType = {
 export type FilterType = 'all' | 'active' | 'completed'
 
 export function ToDoList(props: PropsType) {
-    const [newTaskTitle, setNewTaskTitle] = useState('')
+    const addTask = (title: string) => {
+        props.addNewTask(title, props.id)
+    }
 
-    return <div>
+    return <div className={'toDOList'}>
         <h3>{props.title}</h3>
 
         <div>
-            Add new task: <input value={newTaskTitle} onChange={(e) => {
-            setNewTaskTitle(e.currentTarget.value)
-        }}/>
-            <button onClick={
-                () => {
-                    props.addNewTask(newTaskTitle, props.id)
-                    setNewTaskTitle('')
-                }}>
-                ADD
-            </button>
+            Add new task: <AddItemForm onButtonClick={addTask} />
         </div>
 
         <ul>

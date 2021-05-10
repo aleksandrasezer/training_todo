@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import './App.css';
 import {FilterType, TaskType, ToDoList} from "./components/ToDoList";
 import {v1} from "uuid";
+import {AddItemForm} from "./components/AddItemForm/AddItemForm";
 
 type ToDoListType = {
     id: string
@@ -15,7 +16,7 @@ export type TasksType = {
 function App() {
     const TodoList1 = v1()
     const TodoList2 = v1()
-    const [TodoLists, setTodoLists] = useState<ToDoListType[]>([
+    const [todoLists, setTodoLists] = useState<ToDoListType[]>([
         {id: TodoList1, title: 'Things to do', filter: 'all'},
         {id: TodoList2, title: 'Hobbies', filter: 'all'}
     ])
@@ -30,9 +31,6 @@ function App() {
                 {id: v1(), title: 'Sleep', checked: true}]
     })
 
-
-    const [filter, setFilter] = useState<FilterType>('all')
-
     function addNewTask(title: string, TodoListId: string) {
         const newTask: TaskType = {
             id: v1(),
@@ -42,13 +40,23 @@ function App() {
         setTasks({...tasks, [TodoListId]: [newTask, ...tasks[TodoListId]]})
     }
 
+    function addNewTodoList(title: string) {
+        const newTodoList: ToDoListType = {
+            id: v1(),
+            title,
+            filter: 'all'
+        }
+        setTodoLists([newTodoList,...todoLists])
+        setTasks({...tasks, [newTodoList.id]: []})
+    }
+
     function deleteLine(id: string, TodoListId: string) {
         let tasksLeft = tasks[TodoListId].filter((f) => f.id !== id)
         setTasks({...tasks, [TodoListId]: tasksLeft})
     }
 
     function changeFilter(filter: FilterType, ToDoListId: string) {
-        setTodoLists(TodoLists.map(tl => tl.id === ToDoListId ? {...tl, filter: filter} : tl))
+        setTodoLists(todoLists.map(tl => tl.id === ToDoListId ? {...tl, filter: filter} : tl))
     }
 
     function changeTaskStatus(checked: boolean, ToDoListId: string, taskId: string) {
@@ -56,16 +64,16 @@ function App() {
         setTasks({...tasks, [ToDoListId]: newTasks})
     }
 
-    function filteredTasks(TodoLists: ToDoListType) {
-        if (TodoLists.filter === 'completed') {
-            return tasks[TodoLists.id].filter(t => t.checked)
+    function filteredTasks(todoLists: ToDoListType) {
+        if (todoLists.filter === 'completed') {
+            return tasks[todoLists.id].filter(t => t.checked)
         }
-        if (TodoLists.filter === 'active') {
-            return tasks[TodoLists.id].filter(t => !t.checked)
-        } else return tasks[TodoLists.id]
+        if (todoLists.filter === 'active') {
+            return tasks[todoLists.id].filter(t => !t.checked)
+        } else return tasks[todoLists.id]
     }
 
-    const todoListsComponents = TodoLists.map(tl => {
+    const todoListsComponents = todoLists.map(tl => {
         return (
             <ToDoList id={tl.id}
                       filter={tl.filter}
@@ -79,9 +87,10 @@ function App() {
         )
     });
     return (
-        <div className="App">
+        <>
+            <AddItemForm onButtonClick={addNewTodoList} />
             {todoListsComponents}
-        </div>
+        </>
     );
 }
 
