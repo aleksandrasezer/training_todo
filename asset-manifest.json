@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/training_todo/static/css/main.ec4e028c.chunk.css",
-    "main.js": "/training_todo/static/js/main.c4787187.chunk.js",
-    "main.js.map": "/training_todo/static/js/main.c4787187.chunk.js.map",
+    "main.js": "/training_todo/static/js/main.f4b97a0a.chunk.js",
+    "main.js.map": "/training_todo/static/js/main.f4b97a0a.chunk.js.map",
     "runtime-main.js": "/training_todo/static/js/runtime-main.03242676.js",
     "runtime-main.js.map": "/training_todo/static/js/runtime-main.03242676.js.map",
-    "static/js/2.68b245eb.chunk.js": "/training_todo/static/js/2.68b245eb.chunk.js",
-    "static/js/2.68b245eb.chunk.js.map": "/training_todo/static/js/2.68b245eb.chunk.js.map",
+    "static/js/2.32ab80ec.chunk.js": "/training_todo/static/js/2.32ab80ec.chunk.js",
+    "static/js/2.32ab80ec.chunk.js.map": "/training_todo/static/js/2.32ab80ec.chunk.js.map",
     "static/js/3.28bac0af.chunk.js": "/training_todo/static/js/3.28bac0af.chunk.js",
     "static/js/3.28bac0af.chunk.js.map": "/training_todo/static/js/3.28bac0af.chunk.js.map",
     "index.html": "/training_todo/index.html",
     "static/css/main.ec4e028c.chunk.css.map": "/training_todo/static/css/main.ec4e028c.chunk.css.map",
-    "static/js/2.68b245eb.chunk.js.LICENSE.txt": "/training_todo/static/js/2.68b245eb.chunk.js.LICENSE.txt"
+    "static/js/2.32ab80ec.chunk.js.LICENSE.txt": "/training_todo/static/js/2.32ab80ec.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.03242676.js",
-    "static/js/2.68b245eb.chunk.js",
+    "static/js/2.32ab80ec.chunk.js",
     "static/css/main.ec4e028c.chunk.css",
-    "static/js/main.c4787187.chunk.js"
+    "static/js/main.f4b97a0a.chunk.js"
   ]
 }
