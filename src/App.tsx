@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, { useState} from 'react';
 import './App.css';
 import {FilterType, TaskType, ToDoList} from "./components/ToDoList";
 import {v1} from "uuid";
@@ -59,8 +59,17 @@ function App() {
         setTodoLists(todoLists.map(tl => tl.id === ToDoListId ? {...tl, filter: filter} : tl))
     }
 
+    function changeTodoListTitle(title: string, ToDoListId: string) {
+        setTodoLists(todoLists.map(tl => tl.id === ToDoListId ? {...tl, title: title} : tl))
+    }
+
     function changeTaskStatus(checked: boolean, ToDoListId: string, taskId: string) {
         let newTasks = tasks[ToDoListId].map(t => t.id === taskId ? {...t, checked: checked} : t)
+        setTasks({...tasks, [ToDoListId]: newTasks})
+    }
+
+    function changeTaskTitle(title: string, ToDoListId: string, taskId: string) {
+        let newTasks = tasks[ToDoListId].map(t => t.id === taskId ? {...t, title: title} : t)
         setTasks({...tasks, [ToDoListId]: newTasks})
     }
 
@@ -83,6 +92,8 @@ function App() {
                       changeFilter={changeFilter}
                       addNewTask={addNewTask}
                       changeTaskStatus={changeTaskStatus}
+                      changeTaskTitle={changeTaskTitle}
+                      changeTodoListTitle={changeTodoListTitle}
             />
         )
     });
